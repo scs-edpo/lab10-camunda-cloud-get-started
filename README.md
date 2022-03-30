@@ -5,29 +5,6 @@ Cloud](https://camunda.com/products/cloud/). It contains instructions on how to
 model your first process, create a user task form, and automate a service task.
 During the guide you will use Console, Modeler, Zeebe, Operate, and Tasklist.
 
-# Table of contents
-
-* [Repository structure](#repository-structure)
-* [Setup the environment](#set-up-the-environment)
-* [Model the process](#model-the-process)
-   * [Model the user task form](#model-the-user-task-form)
-   * [Configure user task to use form](#configure-user-task-to-use-form)
-   * [Configure service task](#configure-service-task)
-* [Deploy process](#deploy-process)
-   * [Deploy using Camunda Modeler](#deploy-using-camunda-modeler)
-   * [Deploy using Camunda Cloud](#deploy-using-camunda-cloud)
-   * [Deploy using zbctl](#deploy-using-zbctl)
-   * [Deploy using code](#deploy-using-code)
-* [Start process instance](#start-process-instance)
-   * [Start instance using Camunda Modeler](#start-instance-using-camunda-modeler)
-   * [Start instance using Camunda Cloud](#start-instance-using-camunda-cloud)
-   * [Start instance using zbctl](#start-instance-using-zbctl)
-   * [Start instance using code](#start-instance-using-code)
-* [Complete the user task](#complete-the-user-task)
-* [Complete the service task](#complete-the-service-task)
-* [Further references](#further-references)
-* [Local setup](#local-setup)
-
 # Repository structure
 
 The repository contains the following folders:
@@ -39,12 +16,54 @@ The repository contains the following folders:
 - [_process_](process/) - Contains the BPMN process and the user task form
 - [_spring_](spring/) - Spring Boot example for deploy, create instance, and a job worker
 
-# Set up the environment
+# Local setup and Deployment
 
-To follow this guide, we need a running Camunda Cloud cluster. For this purpose,
+To run the getting started guide against a locally-hosted Zeebe instance, set up the following
+components:
+
+- [Zeebe](https://docs.camunda.io/docs/product-manuals/zeebe/deployment-guide/local/install)
+- [Operate](https://docs.camunda.io/docs/product-manuals/operate/deployment/install-and-start)
+- [Tasklist](https://docs.camunda.io/docs/product-manuals/tasklist/deployment/install-and-start)
+- [Camunda Modeler](https://docs.camunda.io/docs/product-manuals/modeler/camunda-modeler/install-the-modeler)
+
+With docker available in your system, the `docker-compose.yaml` in the root
+folder can be used to spin up the local environment.
+
+```
+docker-compose up -d
+```
+
+After this, Zeebe is available under `localhost:26500`. Disable security
+inside the client when connecting to it.
+
+Operate will be available under http://localhost:8080 and Tasklist will be
+available under http://localhost:8081.
+
+To deploy and execute the example process you need to start the [ProcessApplication](/spring/src/main/java/io/camunda/getstarted/ProcessApplication.java) Spring Boot application.
+Before starting up, make sure that your [application.properties](/spring/src/main/resources/application.properties) file is configured to use the self-managed local Zeebe instance and that all parameters regarding the Camunda Cloud Connection in comments:
+
+```
+# Self-managed local Zeebe
+zeebe.client.broker.gatewayAddress=127.0.0.1:26500
+zeebe.client.security.plaintext=true
+```
+
+
+
+See the following additional resources:
+
+- [Camunda Modeler]
+- [Cloud Modeler]
+- [Camunda Cloud Documentation]
+
+[Camunda Modeler]: https://camunda.com/download/modeler/
+[Cloud Modeler]: https://docs.camunda.io/docs/product-manuals/modeler/cloud-modeler/launch-cloud-modeler
+[Camunda Cloud Documentation]: https://docs.camunda.io
+
+# Set up the Cloud environment
+
+Alternatively, we can use a hosted Camunda Cloud instance. For this purpose,
 we use the Camunda Cloud SaaS offering at https://camunda.io.
-
-If you prefer a local setup, visit the [end of this guide](#local-setup).
 
 After the sign-up and log-in at https://camunda.io, a cluster is already available with the latest stable version of Zeebe and the name **Test Cluster**.
 
@@ -62,6 +81,13 @@ To do this, take the following steps:
 2. Switch to the **API** tab.
 3. Create a new client credential and either note down the **client id** and **client secret**, or
 download the credentials file.
+
+## Execute the Process
+
+Once you have your credentials, the easiest way to run the example is to start the [ProcessApplication](/spring/src/main/java/io/camunda/getstarted/ProcessApplication.java) Spring Boot application.
+It will directly connect to Camunda Cloud services and you do not need to run the Docker-compose file. Attention: You need to configure
+your Camunda Cloud Connection credentials in the [application.properties](/spring/src/main/resources/application.properties) file
+and put the ''Self-managed local Zeebe''' parameters in comments.
 
 # Model the process
 
@@ -258,35 +284,4 @@ Find more information in the [Camunda Cloud Documentation], or join the [Camunda
 Forum](https://forum.camunda.io) and [Camunda Cloud
 Slack](https://camunda-cloud.slack.com) community.
 
-## Local setup
 
-To run the getting started guide against a locally-hosted instance, set up the following
-components:
-
-- [Zeebe](https://docs.camunda.io/docs/product-manuals/zeebe/deployment-guide/local/install)
-- [Operate](https://docs.camunda.io/docs/product-manuals/operate/deployment/install-and-start)
-- [Tasklist](https://docs.camunda.io/docs/product-manuals/tasklist/deployment/install-and-start)
-- [Camunda Modeler](https://docs.camunda.io/docs/product-manuals/modeler/camunda-modeler/install-the-modeler)
-
-If docker is available in your system, the `docker-compose.yaml` in the root
-folder can be used to spin up a local environment.
-
-```
-docker-compose up -d
-```
-
-After this, Zeebe is available under `localhost:26500`. Disable security
-inside the client when connecting to it.
-
-Operate will be available under http://localhost:8080 and Tasklist will be
-available under http://localhost:8081.
-
-See the following additional resources:
-
-- [Camunda Modeler]
-- [Cloud Modeler]
-- [Camunda Cloud Documentation]
-
-[Camunda Modeler]: https://camunda.com/download/modeler/
-[Cloud Modeler]: https://docs.camunda.io/docs/product-manuals/modeler/cloud-modeler/launch-cloud-modeler
-[Camunda Cloud Documentation]: https://docs.camunda.io
