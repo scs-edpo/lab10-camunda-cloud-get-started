@@ -11,8 +11,6 @@ The repository contains the following folders:
 
 - [_images_](images/) - Contains screenshots and images for the guide
 - [_java_](java/) - Plain Java example for deploy, create instance, and a job worker
-- [_nodejs_](nodejs/) - Node.js example for deploy, create instance, and a job worker
-- [_csharp_](csharp/) - C# example for deploy, create instance, and a job worker
 - [_process_](process/) - Contains the BPMN process and the user task form
 - [_spring_](spring/) - Spring Boot example for deploy, create instance, and a job worker
 

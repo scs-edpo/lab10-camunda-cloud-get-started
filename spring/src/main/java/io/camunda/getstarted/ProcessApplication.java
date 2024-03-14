@@ -1,8 +1,9 @@
 package io.camunda.getstarted;
 
-import io.camunda.zeebe.spring.client.EnableZeebeClient;
-import io.camunda.zeebe.spring.client.ZeebeClientLifecycle;
-import io.camunda.zeebe.spring.client.annotation.ZeebeDeployment;
+import io.camunda.zeebe.client.ZeebeClient;
+
+
+import io.camunda.zeebe.spring.client.annotation.Deployment;
 import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -13,8 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableZeebeClient
-@ZeebeDeployment(resources = "classpath:send-email.bpmn")
+@Deployment(resources = "classpath:send-email.bpmn")
 public class ProcessApplication implements CommandLineRunner {
 
   private final static Logger LOG = LoggerFactory.getLogger(ProcessApplication.class);
@@ -24,7 +24,7 @@ public class ProcessApplication implements CommandLineRunner {
   }
 
   @Autowired
-  private ZeebeClientLifecycle client;
+  private ZeebeClient client;
 
   @Override
   public void run(final String... args) throws Exception {
