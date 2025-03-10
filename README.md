@@ -28,7 +28,7 @@ With docker available in your system, the `docker-compose.yaml` in the root
 folder can be used to spin up the local environment.
 
 ```
-docker-compose up -d
+docker compose up
 ```
 
 After this, Zeebe is available under `localhost:26500`. Disable security
@@ -63,22 +63,12 @@ See the following additional resources:
 Alternatively, we can use a hosted Camunda Cloud instance. For this purpose,
 we use the Camunda Cloud SaaS offering at https://camunda.io.
 
-After the sign-up and log-in at https://camunda.io, a cluster is already available with the latest stable version of Zeebe and the name **Test Cluster**.
-
+After the sign-up and log-in at https://camunda.io, ask your tutors to be added to the organization such that
+you can use the cluster we have a available.
 ![Cloud Cluster](images/cloud-cluster.png)
 
-If there is no cluster available, [create a new
-one](https://docs.camunda.io/docs/product-manuals/cloud-console/manage-clusters/create-cluster)
-with the latest stable version of Zeebe.
-
-After the cluster is available, we need to create a pair of [Client
-Credentials](https://docs.camunda.io/docs/product-manuals/cloud-console/manage-clusters/manage-api-clients).
-To do this, take the following steps:
-
-1. Navigate to the **Clusters** detail page.
-2. Switch to the **API** tab.
-3. Create a new client credential and either note down the **client id** and **client secret**, or
-download the credentials file.
+After being added to the organization, get the cluster credentials from Canvas and use them in your Spring Boot properties
+file and/or Camunda Modeler to talk to the cluster.
 
 ## Execute the Process
 

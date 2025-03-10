@@ -9,10 +9,9 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <zeebe.version>8.4.2</zeebe.version>
-    <log4j.version>2.23.1</log4j.version>
+    <maven.compiler.source>20</maven.compiler.source>
+    <maven.compiler.target>20</maven.compiler.target>
+    <log4j.version>2.24.3</log4j.version>
     <main.class>io.camunda.getstarted.DeployAndStartInstance</main.class>
   </properties>
 
@@ -20,7 +19,7 @@
     <dependency>
       <groupId>io.camunda</groupId>
       <artifactId>zeebe-client-java</artifactId>
-      <version>${zeebe.version}</version>
+      <version>8.6.11</version>
     </dependency>
 
     <dependency>
@@ -45,7 +44,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.5.0</version>
         <configuration>
           <mainClass>${main.class}</mainClass>
         </configuration>
