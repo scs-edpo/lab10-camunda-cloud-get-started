@@ -5,14 +5,14 @@ This guide explains how to setup a Spring Boot project to automate a process usi
 
 # Install dependencies
 
-The open source library [spring-zeebe](https://github.com/camunda-community-hub/spring-zeebe)
+The open source library [spring-zeebe](https://docs.camunda.io/docs/apis-tools/spring-zeebe-sdk/getting-started/)
 provides a Zeebe client.
 
 ```
 <dependency>
-  <groupId>io.camunda</groupId>
-  <artifactId>spring-zeebe-starter</artifactId>
-  <version>1.1.0</version>
+	<groupId>io.camunda</groupId>
+	<artifactId>spring-boot-starter-camunda-sdk</artifactId>
+	<version>8.7.0-alpha5</version>
 </dependency>
 ```
 
@@ -41,13 +41,8 @@ zeebe.client.broker.gatewayAddress=127.0.0.1:26500
 zeebe.client.security.plaintext=true
 ```
 
-To enable the Zeebe client integration annotate your application class with
-`@EnableZeebeClient`, see
-[ProcessApplication.java](src/main/java/io/camunda/getstarted/ProcessApplication.java).
-
 ```java
 @SpringBootApplication
-@EnableZeebeClient
 public class ProcessApplication {
 
   public static void main(String[] args) {
@@ -59,14 +54,13 @@ public class ProcessApplication {
 
 # Deploy Process and Start Instance
 
-To deploy a process you can use the annotation `@ZeebeDeployment`, which allows
+To deploy a process you can use the annotation `@Deployment`, which allows
 to specify a list of classpath resources `classPathResources` to be deployed on
 start up.
 
 ```java
 @SpringBootApplication
-@EnableZeebeClient
-@ZeebeDeployment(resources = "classpath:send-email.bpmn")
+
 public class ProcessApplication {
 
   public static void main(String[] args) {
@@ -108,10 +102,10 @@ task](https://docs.camunda.io/docs/reference/bpmn-workflows/service-tasks/servic
 a [job
 worker](https://docs.camunda.io/docs/product-manuals/concepts/job-workers) has
 to be subscribed the to task type defined in the process, i.e. `email`. For this
-the `@ZeebeWorker` annotation can be used and the `type` has to be specified.
+the `@JobWorker` annotation can be used and the `type` has to be specified.
 
 ```
-@ZeebeWorker(type = "email")
+@JobWorker(type = "email")
 public void sendEmail(final JobClient client, final ActivatedJob job) {
   final String message_content = (String) job.getVariablesAsMap().get("message_content");
 
