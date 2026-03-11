@@ -64,11 +64,12 @@ Alternatively, we can use a hosted Camunda Cloud instance. For this purpose,
 we use the Camunda Cloud SaaS offering at https://camunda.io.
 
 After the sign-up and log-in at https://camunda.io, ask your tutors to be added to the organization such that
-you can use the cluster we have a available.
+you can use the cluster we have available. 
 ![Cloud Cluster](images/cloud-cluster.png)
 
-After being added to the organization, get the cluster credentials from Canvas and use them in your Spring Boot properties
-file and/or Camunda Modeler to talk to the cluster.
+**After being added to the organization, get the cluster credentials from Canvas and use them in your Spring Boot properties
+file and/or Camunda Modeler to talk to the cluster.**
+
 
 ## Execute the Process
 
@@ -76,6 +77,8 @@ Once you have your credentials, the easiest way to run the example is to start t
 It will directly connect to Camunda Cloud services and you do not need to run the Docker-compose file. Attention: You need to configure
 your Camunda Cloud Connection credentials in the [application.properties](/spring/src/main/resources/application.properties) file
 and put the ''Self-managed local Zeebe''' parameters in comments.
+
+**To save ressources, Camunda sets the cluster automatically to pause mode. Hence, before running your application you need to resume the cluster from the console [https://console.camunda.io/](https://console.camunda.io/)**
 
 # Model the process
 
