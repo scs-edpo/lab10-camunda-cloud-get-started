@@ -1,6 +1,6 @@
 services:
     zeebe:
-        image: camunda/zeebe:latest
+        image: camunda/zeebe:8.5.17
         hostname: zeebe
         environment:
             - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_CLASSNAME=io.camunda.zeebe.exporter.ElasticsearchExporter
@@ -17,7 +17,7 @@ services:
             - elasticsearch
 
     operate:
-        image: camunda/operate:latest
+        image: camunda/operate:8.5.17
         container_name: operate
         environment:
             - CAMUNDA_OPERATE_ZEEBE_GATEWAYADDRESS=zeebe:26500
@@ -31,7 +31,7 @@ services:
             - elasticsearch
 
     tasklist:
-        image: camunda/tasklist:latest
+        image: camunda/tasklist:8.5.17
         container_name: tasklist
         environment:
             - CAMUNDA_TASKLIST_ZEEBE_GATEWAYADDRESS=zeebe:26500
@@ -45,7 +45,7 @@ services:
             - elasticsearch
 
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:8.16.5
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.17.16
         container_name: elasticsearch
         ports:
             - "9200:9200"
@@ -55,8 +55,7 @@ services:
             - cluster.name=elasticsearch
             - bootstrap.memory_lock=true
             - cluster.routing.allocation.disk.threshold_enabled=false
-            - xpack.security.enabled= false
-            - xpack.security.enrollment.enabled= false
+            - xpack.security.enabled=false
             - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
         ulimits:
             memlock:
